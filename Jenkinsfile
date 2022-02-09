@@ -10,8 +10,8 @@ pipeline {
          }
          stage("Removing Existing Image & Container") {
             steps {
-                sh "docker -H tcp://172.16.1.6:2375 stop jk-mywebpage || true"
-                sh "docker -H tcp://172.16.1.6:2375 rmi -f sivakumar2606/pipeline1:v1 || true"                
+                sh "docker -H tcp://10.1.1.5:2375 stop jk-mywebpage || true"
+                sh "docker -H tcp://10.1.1.5:2375 rmi -f sivakumar2606/pipeline1:v1 || true"                
             }
          }   
          stage("Building New DockerImage") {
@@ -29,13 +29,13 @@ pipeline {
         }
          stage("Deploy Container in Remote Node") {
             steps {
-              sh "docker -H tcp://172.16.1.6:2375 run --rm -dit --name jk-mywebpage --hostname jk-mywebpage -p 9000:80 sivakumar2606/pipeline1:v1"
+              sh "docker -H tcp://10.1.1.5:2375 run --rm -dit --name jk-mywebpage --hostname jk-mywebpage -p 9000:80 sivakumar2606/pipeline1:v1"
             }  
         }
         stage("Check Reachability") {
             steps {
               sh "sleep 5s"
-              sh "curl http://13.68.218.161:9000"
+              sh "curl http://52.170.67.69:9000"
             }
        }     
     }
