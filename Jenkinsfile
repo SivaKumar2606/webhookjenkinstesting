@@ -12,8 +12,8 @@ pipeline {
          }
          stage("Removing Existing Image & Container") {
             steps {
-                sh "docker -H tcp://172.16.1.6:2375 rmi -f sivakumar2606/pipeline1:v1 || true"
                 sh "docker -H tcp://172.16.1.6:2375 stop jk-mywebpage || true"
+                sh "docker -H tcp://172.16.1.6:2375 rmi -f sivakumar2606/pipeline1:v1 || true"               
             }
          }   
          stage("Building New DockerImage") {
